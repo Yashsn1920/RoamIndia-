@@ -1,0 +1,37 @@
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python environments, caches, and bytecode
+.venv/
+venv/
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+
+# Node dependencies and local user store
+node_modules/
+**/node_modules/
+users.json
+**/users.json
+credentials.json
+**/credentials.json
+*.pem
+*.key
+
+# Local datasets and generated analysis outputs
+/data/raw/
+/data/processed/
+/data/eda_charts/
+
+# Logs and editor/OS files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

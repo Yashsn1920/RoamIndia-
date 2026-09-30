@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f6f4">
+    <title>RoamIndia | Expense Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/calculator.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="/planner" target="_blank" rel="noopener">
+                <span class="brand-mark"><i class="fa-solid fa-compass"></i></span>
+                <span><strong>RoamIndia</strong><small>Plan a more memorable journey</small></span>
+            </a>
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="/planner" target="_blank" rel="noopener">Home</a>
+                <a href="/planner#guides" target="_blank" rel="noopener">Explore</a>
+                <a href="/planner#trip-plan" target="_blank" rel="noopener">Itinerary</a>
+                <a href="/planner#hotels-panel" target="_blank" rel="noopener">Stays</a>
+                <a class="is-active" href="/calculator" target="_blank" rel="noopener">Expense Calculator</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="intro-band">
+                <div>
+                    <span class="eyebrow">Know before you go</span>
+                    <h1>Plan your trip budget</h1>
+                    <p>Get a cost estimate for flights, stays, activities, food, and local transport.</p>
+                </div>
+                <div class="intro-icon" aria-hidden="true"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            </section>
+
+            <section class="calculator-layout" aria-label="Trip cost estimate">
+                <form id="estimateForm" class="estimate-form">
+                    <div class="form-heading">
+                        <div><span class="eyebrow">Your trip details</span><h2>Build an estimate</h2></div>
+                        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+                    </div>
+                    <div class="field-grid">
+                        <label>Flying from
+                            <select name="origin" required></select>
+                        </label>
+                        <label>Destination
+                            <select name="destination" required></select>
+                        </label>
+                        <label>Departure
+                            <input name="departure_date" type="date" required>
+                        </label>
+                        <label>Return
+                            <input name="return_date" type="date" required>
+                        </label>
+                        <label>Adults
+                            <input name="adults" type="number" min="1" max="10" value="2" required>
+                        </label>
+                        <label>Children
+                            <input name="children" type="number" min="0" max="5" value="0" required>
+                        </label>
+                        <label>Hotel standard
+                            <select name="hotel_tier">
+                                <option value="budget">Budget</option>
+                                <option value="midrange" selected>Mid-range</option>
+                                <option value="luxury">Luxury</option>
+                            </select>
+                        </label>
+                        <label>Flight class
+                            <select name="seat_class"><option value="economy">Economy</option><option value="business">Business</option></select>
+                        </label>
+                        <label>Group type
+                            <select name="traveller_type">
+                                <option value="solo">Solo</option><option value="couple" selected>Couple</option>
+                                <option value="family">Family</option><option value="group">Group</option>
+                            </select>
+                        </label>
+                        <label>Trip purpose
+                            <select name="trip_purpose">
+                                <option value="leisure" selected>Leisure</option><option value="adventure">Adventure</option>
+                                <option value="pilgrimage">Pilgrimage</option><option value="business">Business</option>
+                            </select>
+                        </label>
+                    </div>
+                    <p id="formError" class="form-error" role="alert" hidden></p>
+                    <button class="submit-button" type="submit"><i class="fa-solid fa-calculator"></i> Calculate trip cost</button>
+                    <p class="model-note"><i class="fa-solid fa-chart-line"></i> Estimates use your trained flight, hotel, and tourism models.</p>
+                </form>
+
+                <section class="results-panel" aria-live="polite">
+                    <div id="emptyState" class="empty-state">
+                        <span class="empty-icon"><i class="fa-solid fa-wallet"></i></span>
+                        <span class="eyebrow">Trip cost forecast</span>
+                        <h2>Your estimate starts here</h2>
+                        <p>Choose your route and travel preferences to see a complete budget breakdown.</p>
+                    </div>
+                    <div id="estimateResults" hidden>
+                        <div class="total-block">
+                            <span class="eyebrow">Estimated total</span>
+                            <strong id="totalMid">₹0</strong>
+                            <span id="totalRange" class="total-range"></span>
+                            <span id="tripSummary" class="trip-summary"></span>
+                        </div>
+                        <div class="stats-row">
+                            <div class="stat-tile stat-low"><span>Low estimate</span><strong id="totalLow">₹0</strong></div>
+                            <div class="stat-tile stat-high"><span>High estimate</span><strong id="totalHigh">₹0</strong></div>
+                            <div class="stat-tile stat-duration"><span>Trip length</span><strong id="tripDuration">0 days</strong></div>
+                        </div>
+                        <div class="breakdown-section">
+                            <div class="breakdown-title"><div><span class="eyebrow">Where it goes</span><h2>Cost breakdown</h2></div><span class="rupee-mark">₹</span></div>
+                            <div class="chart-layout">
+                                <div id="costChart" role="img" aria-label="Pie chart showing the trip cost breakdown"></div>
+                                <div id="costLegend" class="cost-legend"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="loadingState" class="loading-state" hidden><span class="spinner"></span><strong>Calculating your trip</strong><p>Running your cost models now.</p></div>
+                </section>
+            </section>
+        </main>
+        <footer>RoamIndia <span>·</span> A thoughtful estimate for your next journey</footer>
+    </div>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script src="/calculator.js"></script>
+</body>
+</html>
